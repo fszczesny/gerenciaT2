@@ -1,6 +1,5 @@
 # Instala o python
 sudo apt install python2.7
-sudo apt install python3.5
 
 # Instala o pip - gerenciador de pacotes e outros
 sudo apt install python-pip
