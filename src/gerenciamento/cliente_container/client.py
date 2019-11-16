@@ -3,7 +3,7 @@ import iperf3
 
 client = iperf3.Client()
 client.duration = 15
-client.server_hostname = '127.0.0.1'
+client.server_hostname = '192.168.25.11'
 client.port = 5201
 
 print('[INFO] - Connecting to {0}:{1}'.format(client.server_hostname, client.port))
