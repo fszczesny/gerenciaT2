@@ -10,8 +10,16 @@ RUN apt-get install python-pip -y
 RUN apt-get install python-setuptools -y
 RUN apt-get install python-wheel -y
 
+# Instala nodejs para ui
+RUN apt-get install nodejs -y
+RUN apt-get install npm -y
+
 # Instala lib do iperf3
 RUN pip install iperf3
+# Instala libs para backend em python
+RUN pip install -U Flask
+RUN pip install flask-restful
+RUN pip install -U flask-cors
 
 COPY client.py . 
 ENTRYPOINT ["python2.7", "client.py"]
