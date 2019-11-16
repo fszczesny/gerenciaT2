@@ -96,7 +96,50 @@ app = Flask(__name__)
 
 cors = CORS(app)
 
-# Aqui tem que criar os apps routes
-connectionResut = startClient(ipDevice, portDevice, connectionTime)
+@app.route("/data", methods=['GET'])
+@cross_origin(origin='127.0.0.1')
+def sendData():
+    global networkBand
+    global networkLoss
+    global deviceCpu
+    global alertBand
+    global alertLoss
+    global alertCpu
+    return {'network-band':  networkBand, 'network-loss': networkLoss, 'device-cpu': deviceCpu, 'alert-band': alertBand, "alert-loss": alertLoss, 'alert-cpu' :  alertCpu }
+
+@app.route("/change-params", methods=['POST'])
+@cross_origin(origin='127.0.0.1')
+def ChangeParams():
+    lock.acquire()
+    global connectionResut
+    global portDevice
+    global ipDevice
+    global connectionTime
+    global minNetworkBand
+    global maxNetworkLoss
+    global maxDeviceCpu
+
+    req_data = request.get_json()['data']
+    ipDevice = req_data['ip']
+    portDevice = int(req_data['porta'])
+    connectionTime = int(req_data['time'])
+    minNetworkBand = float(req_data['minNetworkBand'])
+    maxNetworkLoss = float(req_data['maxNetworkLoss'])
+    maxDeviceCpu = float(req_data['maxDeviceCpu'])
+
+    print("SET", ipDevice, portDevice, connectionTime, minNetworkBand, maxNetworkLoss, maxDeviceCpu)
+    
+    try:
+        connectionResut = startClient(ipDevice, portDevice, connectionTime)
+    except Exception as excp:
+        print("ERROR - Connection error:")
+        print(excp)
+        connectionResut = False
+    lock.release()
+
+    return { "ok": True }
+
+
+app.run(port='5002')
 
 updateVariablesThread.join()
