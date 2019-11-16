@@ -1,9 +1,14 @@
-# Executar com python 2.7
+from array import *
 import iperf3
+import time
+from flask import Flask, request
+from flask_restful import Resource, Api
+from flask_cors import CORS, cross_origin
+import threading
 
 client = iperf3.Client()
 client.duration = 15
-client.server_hostname = '192.168.25.11'
+client.server_hostname = '192.168.0.109'
 client.port = 5201
 
 print('[INFO] - Connecting to {0}:{1}'.format(client.server_hostname, client.port))
