@@ -22,3 +22,6 @@ sudo docker-compose build && sudo docker-compose up --force-recreate
 
 # FRONT-END tem que se conectar no IP do back
 sudo docker network inspect src_backend 
+
+# para escalar o numero de instancias de um certo container:
+sudo docker-compose scale gerenciamento-client=5

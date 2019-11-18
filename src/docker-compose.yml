@@ -7,7 +7,6 @@ services:
     networks:
       - banco
   gerenciamento-client:
-    image: eduardo
     build: gerenciamento/cliente_container/
     environment:
       HOST: 0.0.0.0
