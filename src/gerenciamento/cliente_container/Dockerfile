@@ -1,25 +1,26 @@
-FROM networkstatic/iperf3
+# FROM networkstatic/iperf3
+FROM ubuntu:18.10
 
+
+#install iperf
 RUN apt-get update
+RUN apt-get install iperf3 -y
+
 # Instala o python
-RUN apt-get install python2.7 -y
+RUN apt-get install python3.6 -y
 
 # Instala o pip - gerenciador de pacotes e outros
-RUN apt-get install python-pip -y
-
-RUN apt-get install python-setuptools -y
-RUN apt-get install python-wheel -y
-
-# Instala nodejs para ui
-RUN apt-get install nodejs -y
-RUN apt-get install npm -y
+RUN apt-get install python3-pip -y
 
 # Instala lib do iperf3
-RUN pip install iperf3
+RUN pip3 install iperf3
 # Instala libs para backend em python
-RUN pip install -U Flask
-RUN pip install flask-restful
-RUN pip install -U flask-cors
+RUN pip3 install -U Flask
+RUN pip3 install flask-restful
+RUN pip3 install -U flask-cors
 
 COPY client.py . 
-ENTRYPOINT ["python2.7", "client.py"]
+COPY client_stateless.py . 
+
+EXPOSE 5005
+ENTRYPOINT ["python3.6", "client_stateless.py"]
