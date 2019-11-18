@@ -1,0 +1,22 @@
+version: "3.7"
+services:
+  gerenciamento-server:
+    build: gerenciamento/servidor_container/
+    ports:
+      - 5201:5201
+    networks:
+      - banco
+  gerenciamento-client:
+    build: gerenciamento/cliente_container/
+    environment:
+      HOST: 0.0.0.0
+    depends_on:
+      - "gerenciamento-server"
+    networks:
+      - backend
+# volumes:
+#   logvolume01: {}
+
+networks:
+  banco:
+  backend:
