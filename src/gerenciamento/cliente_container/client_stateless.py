@@ -4,13 +4,14 @@ import time
 from flask import Flask, request
 from flask_restful import Resource, Api
 from flask_cors import CORS, cross_origin
+import os
 
 # Cria e estabelece conexao
-def startClient(ip, port, connectionDuration):
+def startClient(connectionDuration):
     client = iperf3.Client()
     client.duration = connectionDuration
-    client.server_hostname = ip
-    client.port = port
+    client.server_hostname = os.getenv('SERVER_IP')
+    client.port = 5201
     print('[INFO] - Connecting to {0}:{1}'.format(client.server_hostname, client.port))
     result = client.run()
     return result
@@ -44,8 +45,6 @@ def sendData():
 
     req_data = request.get_json()
 
-    ipDevice = req_data['ip']
-    portDevice = int(req_data['porta'])
     connectionTime = int(req_data['time'])
 
     minNetworkBand = float(req_data['minNetworkBand'])
@@ -59,7 +58,7 @@ def sendData():
     alertLoss = False
     alertCpu = False
 
-    connectionResut = startClient(ipDevice, portDevice, connectionTime)
+    connectionResut = startClient(connectionTime)
 
     if connectionResut is not False:
         returnedData = analiseConnection(connectionResut)

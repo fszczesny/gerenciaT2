@@ -4,9 +4,16 @@ services:
     build: gerenciamento/servidor_container/
     ports:
       - 5201:5201
+    networks:
+      - banco
   aplicacao-banco:
     build: aplicacao/banco/
     environment:
       MYSQL_ROOT_PASSWORD: secret
     ports:
       - 3306:3306
+    networks:
+      - banco
+
+networks:
+  banco:

@@ -3,6 +3,18 @@ services:
   gerenciamento-client:
     build: gerenciamento/cliente_container/
     environment:
-      - HOST="0.0.0.0"
+      HOST: "0.0.0.0"
+      SERVER_IP: "192.168.43.186"
+    networks:
+      - back
+    ports:
+      - 5005:5005
   aplicacao-cliente:
     build: aplicacao/cliente/
+    environment:
+      SERVER_IP: "192.168.43.186"
+    networks:
+      - back
+
+networks:
+  back:

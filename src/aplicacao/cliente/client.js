@@ -9,7 +9,7 @@ const main = async () => {
     await sleep(1000);
     try {
       var connection = mysql.createConnection({
-        host: "aplicacao-banco", // docker-compose magic :) (links tag)
+        host: process.env.SERVER_IP, // "192.168.43.186"
         port: 3306,
         user: "root",
         password: "secret",
