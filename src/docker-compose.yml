@@ -9,13 +9,28 @@ services:
   gerenciamento-client:
     build: gerenciamento/cliente_container/
     environment:
-      HOST: 0.0.0.0
+      - HOST="0.0.0.0"
     depends_on:
       - "gerenciamento-server"
     networks:
       - backend
-# volumes:
-#   logvolume01: {}
+  aplicacao-banco:
+    build: aplicacao/banco/
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+    ports:
+      - 3306:3306
+    networks:
+      - banco
+  aplicacao-cliente:
+    build: aplicacao/cliente/
+    networks:
+      - backend
+    depends_on:
+      - "aplicacao-banco"
+    # links:
+    #   - "aplicacao-banco" // default
 
 networks:
   banco:

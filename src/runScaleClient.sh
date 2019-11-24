@@ -1,0 +1,1 @@
+sudo docker-compose -f client.docker-compose.yml scale aplicacao-cliente=$1
