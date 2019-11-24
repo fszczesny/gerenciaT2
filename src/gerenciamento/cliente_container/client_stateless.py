@@ -38,12 +38,13 @@ app = Flask(__name__)
 
 cors = CORS(app)
 
-@app.route("/data", methods=['GET'])
+@app.route("/data", methods=['POST'])
 @cross_origin(origin='0.0.0.0')
 def sendData():
 
+    print('----------------', request.get_json(), flush=True)
 
-    req_data = request.get_json()
+    req_data = request.get_json()['data']
 
     connectionTime = int(req_data['time'])
 
