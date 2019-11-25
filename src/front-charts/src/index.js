@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import { render } from "react-dom";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import axios from "axios";
 import "./index.css";
-import { Input, TextField } from "@material-ui/core";
+import {Input, TextField, Button} from "@material-ui/core";
+
 
 const App = props => {
   const [serie, setSerie] = useState([]);
@@ -24,7 +25,6 @@ const App = props => {
         },
 
         data: {
-          //OBERDAN ESSES VALORES VAO ESTAR NO FORMULARIO, QUANDOALTERADOSVAOESPELHAR AQUI
           time: "1",
           minNetworkBand: 20,
           maxNetworkLoss: 20,
@@ -93,6 +93,10 @@ const App = props => {
     ]
   };
   return (
+
+
+
+
     <div className="wrapper">
       <div>
         <div className="INF">
@@ -105,34 +109,39 @@ const App = props => {
       </div>
       <div className="outerGrid">
         <div className="formGrid">
+
           <TextField
-            label="um label"
+            label="MINIMAL NETWORK BAND"
             type="number"
-            value={1}
+            placeholder="20"
+            // value={1}
             onChange={e => console.log("valor novo: ", e.target.value)}
             variant="outlined"
           />
           <TextField
-            label="um label"
+            label="MAXIMAL NETWORK LOSS"
             type="number"
-            value={1}
+            placeholder="20"
+            // value={1}
             onChange={e => console.log("valor novo: ", e.target.value)}
             variant="outlined"
           />
           <TextField
-            label="um label"
+            label="MAXIMAL DEVICE CPU"
             type="number"
-            value={1}
+            placeholder="20"
+            //value={1}
             onChange={e => console.log("valor novo: ", e.target.value)}
             variant="outlined"
           />
-          <TextField
-            label="um label"
-            type="number"
-            value={1}
-            onChange={e => console.log("valor novo: ", e.target.value)}
-            variant="outlined"
-          />
+
+          <Button
+            // onSubmit={this.handleSubmit}
+            variant="contained"
+            type="submit"
+          >
+          UPDATE / START
+        </Button>
         </div>
         <div>
           <HighchartsReact highcharts={Highcharts} options={optionsBanda} />

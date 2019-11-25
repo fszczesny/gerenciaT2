@@ -11,3 +11,7 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 docker-compose --version
+
+# 3. Install NodeJs
+sudo apt install nodejs
+sudo apt install npm
