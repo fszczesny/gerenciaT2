@@ -12,6 +12,13 @@ const App = props => {
   const [cpu, setCpu] = useState([]);
   const [loss, setLoss] = useState([]);
 
+   const [minNetworkBand, setMinNetworkBand] = useState(20)
+   const [maxNetworkLoss, setMaxNetworkLoss] = useState(5)
+   const [maxDeviceCpu, setMaxDeviceCpu] = useState(85)
+   const [maxNetworkLossError, setMaxNetworkLossError] = useState(false) 
+   const [minNetworkBandError, setMinNetworkBandError] = useState(false) 
+   const [maxDeviceCPUError, setMaxDeviceCPUError] = useState(false)        
+
   const getData = async (serie, cpu, loss) => {
     console.log("=============", serie);
     try {
@@ -26,19 +33,26 @@ const App = props => {
 
         data: {
           time: "1",
-          minNetworkBand: 20,
-          maxNetworkLoss: 20,
-          maxDeviceCpu: 20
+          minNetworkBand: minNetworkBand,
+          maxNetworkLoss: maxNetworkLoss,
+          maxDeviceCpu: maxDeviceCpu
         }
       });
       console.log("response", response.data);
 
-      const band = response.data["network-band"];
+      let band = response.data["network-band"];
+      band = band / 1024;
       const cpuA = response.data["device-cpu"];
       const lossA = response.data["network-loss"];
+      const alertBand = response.data["alert-band"];
+      const alertCpuA = response.data["alert-cpu"];
+      const alertLossA = response.data["alert-loss"];
 
-      setSerie([...serie, band].filter(el => el));
       setCpu([...cpu, cpuA]);
+      setMaxNetworkLossError(alertLossA);
+      setMinNetworkBandError(alertBand);
+      setMaxDeviceCPUError(alertCpuA);
+      setSerie([...serie, band].filter(el => el));
       setLoss([...loss, lossA]);
     } catch (err) {
       console.warn("ERROR:", err);
@@ -114,34 +128,51 @@ const App = props => {
             label="MINIMAL NETWORK BAND"
             type="number"
             placeholder="20"
-            // value={1}
-            onChange={e => console.log("valor novo: ", e.target.value)}
+            error = {minNetworkBandError}
+            value={minNetworkBand}
+            onChange={e => {
+                    
+            setSerie([])
+            setCpu([])
+            setLoss([])
+            setMinNetworkBand( e.target.value)
+            }}
             variant="outlined"
           />
           <TextField
             label="MAXIMAL NETWORK LOSS"
             type="number"
             placeholder="20"
-            // value={1}
-            onChange={e => console.log("valor novo: ", e.target.value)}
+            error = {maxNetworkLossError}
+            value={maxNetworkLoss}
+            onChange={e => {
+              
+                    
+            setSerie([])
+            setCpu([])
+            setLoss([])
+              setMaxNetworkLoss(e.target.value)
+            }}
             variant="outlined"
           />
           <TextField
             label="MAXIMAL DEVICE CPU"
             type="number"
             placeholder="20"
-            //value={1}
-            onChange={e => console.log("valor novo: ", e.target.value)}
+            error = {maxDeviceCPUError}
+            value={maxDeviceCpu}
+            onChange={e => {
+                
+            setSerie([])
+            setCpu([])
+            setLoss([])
+
+                setMaxDeviceCpu(e.target.value)
+            }}
             variant="outlined"
           />
 
-          <Button
-            // onSubmit={this.handleSubmit}
-            variant="contained"
-            type="submit"
-          >
-          UPDATE / START
-        </Button>
+          
         </div>
         <div>
           <HighchartsReact highcharts={Highcharts} options={optionsBanda} />
