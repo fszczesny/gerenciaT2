@@ -22,9 +22,9 @@ code {
 
 .formGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
   grid-gap: 2rem;
-  background-color: red;
+
+  padding: 2rem;
 }
 
 .outerGrid {

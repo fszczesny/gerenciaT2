@@ -4,6 +4,7 @@ import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import axios from "axios";
 import "./index.css";
+import { Input, TextField } from "@material-ui/core";
 
 const App = props => {
   const [serie, setSerie] = useState([]);
@@ -104,10 +105,34 @@ const App = props => {
       </div>
       <div className="outerGrid">
         <div className="formGrid">
-          <div>input 1</div>
-          <div>input 2</div>
-          <div>input 3</div>
-          <div>input 4</div>
+          <TextField
+            label="um label"
+            type="number"
+            value={1}
+            onChange={e => console.log("valor novo: ", e.target.value)}
+            variant="outlined"
+          />
+          <TextField
+            label="um label"
+            type="number"
+            value={1}
+            onChange={e => console.log("valor novo: ", e.target.value)}
+            variant="outlined"
+          />
+          <TextField
+            label="um label"
+            type="number"
+            value={1}
+            onChange={e => console.log("valor novo: ", e.target.value)}
+            variant="outlined"
+          />
+          <TextField
+            label="um label"
+            type="number"
+            value={1}
+            onChange={e => console.log("valor novo: ", e.target.value)}
+            variant="outlined"
+          />
         </div>
         <div>
           <HighchartsReact highcharts={Highcharts} options={optionsBanda} />
