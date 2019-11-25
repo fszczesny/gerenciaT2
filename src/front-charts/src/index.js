@@ -3,9 +3,12 @@ import { render } from "react-dom";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import axios from "axios";
+import "./index.css";
 
 const App = props => {
   const [serie, setSerie] = useState([]);
+  const [cpu, setCpu] = useState([]);
+  const [loss, setLoss] = useState([]);
 
   const getData = async serie => {
     console.log("=============", serie);
@@ -20,6 +23,7 @@ const App = props => {
         },
 
         data: {
+          //OBERDAN ESSES VALORES VAO ESTAR NO FORMULARIO, QUANDOALTERADOSVAOESPELHAR AQUI
           time: "1",
           minNetworkBand: 20,
           maxNetworkLoss: 20,
@@ -29,11 +33,12 @@ const App = props => {
       console.log("response", response.data);
 
       const band = response.data["network-band"];
+      const cpuA = response.data["device-cpu"];
+      const lossA = response.data["device-loss"];
 
-      console.log("DAFUQ", serie);
-      const serieCopy = [...serie];
-      console.log("serieCopy", serieCopy, band);
-      setSerie([...serieCopy, band].filter(el => el));
+      setSerie([...serie, band].filter(el => el));
+      setCpu([...cpu, cpuA]);
+      setLoss([...loss, lossA]);
     } catch (err) {
       console.warn("ERROR:", err);
     }
@@ -54,19 +59,45 @@ const App = props => {
   }, [serie]);
 
   console.log("serie", serie);
-  const options = {
-    title: {
-      text: "Conexão"
-    },
+
+  const optionsBanda = {
     series: [
       {
+        name: "Banda (Mbps)",
         data: serie
       }
     ]
   };
+
+  const options_percentage = {
+    series: [
+      {
+        name: "CPU (%)",
+        data: cpu
+      },
+      {
+        name: "Retransmissão (%)",
+        data: loss
+      }
+    ]
+  };
   return (
-    <div>
-      <HighchartsReact highcharts={Highcharts} options={options} />
+    <div className="wrapper">
+      <div>
+        Trabalho de Gerência de ..... esse teladsfdjsf ta bugado alguem arrumae{" "}
+      </div>
+      <div className="formWrapper"> forulario</div>
+      <div className="chartsWrapper">
+        <div className="chartWrapper">
+          <HighchartsReact highcharts={Highcharts} options={optionsBanda} />
+        </div>
+        <div className="chartWrapper">
+          <HighchartsReact
+            highcharts={Highcharts}
+            options={options_percentage}
+          />
+        </div>
+      </div>
     </div>
   );
 };
