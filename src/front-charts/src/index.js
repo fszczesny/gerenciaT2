@@ -10,7 +10,7 @@ const App = props => {
   const [cpu, setCpu] = useState([]);
   const [loss, setLoss] = useState([]);
 
-  const getData = async serie => {
+  const getData = async (serie, cpu, loss) => {
     console.log("=============", serie);
     try {
       const response = await axios.post("http://127.0.0.1:5005/data", {
@@ -34,7 +34,7 @@ const App = props => {
 
       const band = response.data["network-band"];
       const cpuA = response.data["device-cpu"];
-      const lossA = response.data["device-loss"];
+      const lossA = response.data["network-loss"];
 
       setSerie([...serie, band].filter(el => el));
       setCpu([...cpu, cpuA]);
@@ -45,22 +45,22 @@ const App = props => {
   };
 
   useEffect(() => {
-    getData([]);
-    // setInterval(() => {
-    //   console.log("serie---", serie);
-    // }, 5000);
+    getData([], [], []);
   }, []);
 
   useEffect(() => {
     console.log("mudou", serie);
     setTimeout(() => {
-      getData(serie);
+      getData(serie, cpu, loss);
     }, 5000);
-  }, [serie]);
+  }, [loss]);
 
   console.log("serie", serie);
 
   const optionsBanda = {
+    title: {
+      text: "Banda (Mbps)"
+    },
     series: [
       {
         name: "Banda (Mbps)",
@@ -69,12 +69,22 @@ const App = props => {
     ]
   };
 
-  const options_percentage = {
+  const options_a = {
+    title: {
+      text: "CPU (%)"
+    },
     series: [
       {
         name: "CPU (%)",
         data: cpu
-      },
+      }
+    ]
+  };
+  const options_b = {
+    title: {
+      text: "Retransmissão (%)"
+    },
+    series: [
       {
         name: "Retransmissão (%)",
         data: loss
@@ -83,19 +93,22 @@ const App = props => {
   };
   return (
     <div className="wrapper">
-      <div>
-        Trabalho de Gerência de ..... esse teladsfdjsf ta bugado alguem arrumae{" "}
-      </div>
-      <div className="formWrapper"> forulario</div>
-      <div className="chartsWrapper">
-        <div className="chartWrapper">
+      <div>INF01015 - Gerência E Aplicações Em Redes (2019/2)</div>
+      <div className="outerGrid">
+        <div className="formGrid">
+          <div>input 1</div>
+          <div>input 2</div>
+          <div>input 3</div>
+          <div>input 4</div>
+        </div>
+        <div>
           <HighchartsReact highcharts={Highcharts} options={optionsBanda} />
         </div>
-        <div className="chartWrapper">
-          <HighchartsReact
-            highcharts={Highcharts}
-            options={options_percentage}
-          />
+        <div>
+          <HighchartsReact highcharts={Highcharts} options={options_a} />
+        </div>
+        <div>
+          <HighchartsReact highcharts={Highcharts} options={options_b} />
         </div>
       </div>
     </div>

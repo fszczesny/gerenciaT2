@@ -13,40 +13,24 @@ code {
 }
 
 .wrapper {
-  background-color: aqua;
   display: grid;
 
-  /* width: 100%;
-  height: 100%; */
-
   grid-template-columns: 1fr;
-  grid-template-rows: 4rem 1fr 1fr;
+  grid-template-rows: 4rem 1fr;
   grid-gap: 2rem;
 }
 
-.formWrapper {
-  width: 100%;
-  height: 100%;
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2rem;
   background-color: red;
 }
 
-.chartsWrapper {
-  width: 100%;
-  height: 100%;
-  background-color: green;
+.outerGrid {
   display: grid;
 
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
+  grid-template-rows: 1fr 1fr;
   grid-gap: 2rem;
-}
-
-.chartWrapper {
-  border-width: 1px;
-  border: solid;
-  border-color: blue;
-
-  width: 100%;
-  height: 100%;
-  background-color: pink;
 }
