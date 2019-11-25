@@ -93,7 +93,15 @@ const App = props => {
   };
   return (
     <div className="wrapper">
-      <div>INF01015 - Gerência E Aplicações Em Redes (2019/2)</div>
+      <div>
+        <div className="INF">
+          INF01015 - Gerência E Aplicações Em Redes (2019/2)
+        </div>
+        <div className="emails">
+          fsalmeida@inf.ufrgs.br, ebchandelier@inf.ufrgs.br,
+          ocsantos@inf.ufrgs.br
+        </div>
+      </div>
       <div className="outerGrid">
         <div className="formGrid">
           <div>input 1</div>

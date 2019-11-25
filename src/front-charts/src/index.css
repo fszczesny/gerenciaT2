@@ -34,3 +34,19 @@ code {
   grid-template-rows: 1fr 1fr;
   grid-gap: 2rem;
 }
+
+.INF {
+  width: 100%;
+
+  text-align: center;
+  font-size: 2rem;
+
+  color: grey;
+}
+
+.emails {
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  color: lightgray;
+}
